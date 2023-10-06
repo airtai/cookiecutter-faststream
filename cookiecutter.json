@@ -1,0 +1,5 @@
+{
+    "username": "dummy-username",
+    "repo_name": "faststream_app",
+    "streaming_service": "kafka"
+}

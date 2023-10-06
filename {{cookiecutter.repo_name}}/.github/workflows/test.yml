@@ -1,0 +1,40 @@
+name: Tests
+on:  [workflow_dispatch, pull_request, push]
+
+jobs:
+  static_analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install Dependencies and library
+        shell: bash
+        run: |
+          set -ux
+          python -m pip install --upgrade pip
+          pip install -e ".[static-analysis]"
+      - name: Run mypy
+        shell: bash
+        run: mypy {{cookiecutter.repo_name}}
+
+      - name: Run bandit
+        shell: bash
+        run: bandit -c pyproject.toml -r {{cookiecutter.repo_name}}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Test with pytest
+        run: |
+          python -m pytest

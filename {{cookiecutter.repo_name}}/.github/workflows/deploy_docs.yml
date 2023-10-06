@@ -1,0 +1,50 @@
+name: Deploy FastStream AsyncAPI Docs
+on:
+    push:
+      branches:
+        - master
+        - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy_docs:
+    name: Deploy FastStream AsyncAPI Docs to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-python@v4
+          with:
+            python-version: {% raw %}${{ inputs.version }}{% endraw %}
+        - name: Install Dependencies
+          shell: bash
+          run: |
+            set -ux
+            python -m pip install --upgrade pip
+            test -f pyproject.toml && pip install -e "." || echo "pyproject.toml doesn't exists"
+            test -f requirements.txt && pip install -r requirements.txt || echo "requirements.txt doesn't exists"
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: Generate asyncapi.yaml
+          shell: bash
+          run: |
+            faststream docs gen --yaml app.application:app
+        - name: Generate AsyncAPI Docs
+          shell: bash
+          run: |
+            npx --version
+            npx -y -p @asyncapi/generator ag --version
+            mkdir asyncapi_docs
+            npx -y -p @asyncapi/generator ag asyncapi.yaml @asyncapi/html-template -o asyncapi_docs
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+            force_orphan: true
+            publish_dir: ./asyncapi_docs
+            # The following lines assign commit authorship to the official GH-Actions bot for deploys to `gh-pages` branch.
+            # You can swap them out with your own user credentials.
+            user_name: github-actions[bot]
+            user_email: 41898282+github-actions[bot]@users.noreply.github.com
