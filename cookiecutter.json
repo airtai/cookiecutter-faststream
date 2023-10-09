@@ -1,5 +1,5 @@
 {
-    "username": "dummy-username",
+    "username": "github-username",
     "repo_name": "faststream_app",
-    "streaming_service": "kafka"
+    "streaming_service": ["rabbit", "kafka", "nats"]
 }
