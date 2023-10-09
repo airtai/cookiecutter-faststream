@@ -1,7 +1,7 @@
 import pytest
 from faststream.{{cookiecutter.streaming_service}} import Test{{cookiecutter.streaming_service | capitalize}}Broker
 
-from {{cookiecutter.repo_name}}.application import Greeting, Name, broker, on_names
+from {{cookiecutter.project_slug}}.application import Greeting, Name, broker, on_names
 
 
 @broker.subscriber("greetings")

@@ -1,4 +1,4 @@
-# FastStream Application
+# {{cookiecutter.project_name}}
 
 Application in this repository is developed using the [`FastStream`](https://github.com/airtai/faststream) framework. Below, you'll find a guide on how to get started, develop new features or bug fixes, and ensure the quality of your code through testing and linting, run the [`FastStream`](https://github.com/airtai/faststream) application locally, and view [`AsyncAPI`](https://www.asyncapi.com/) documentation.
 
@@ -9,8 +9,8 @@ To set up your development environment, follow these steps:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/{{cookiecutter.username}}/{{cookiecutter.repo_name}}.git
-   cd {{cookiecutter.repo_name}}
+   git clone https://github.com/{{cookiecutter.username}}/{{cookiecutter.project_slug}}.git
+   cd {{cookiecutter.project_slug}}
    ```
 
 2. Install all development requirements using pip:
@@ -44,7 +44,7 @@ To run the [`FastStream`](https://github.com/airtai/faststream) application loca
 2. Start the [`FastStream`](https://github.com/airtai/faststream) application with the following command:
 
    ```bash
-   faststream run {{cookiecutter.repo_name}}.application:app --workers 1
+   faststream run {{cookiecutter.project_slug}}.application:app --workers 1
    ```
 
 3. You can now send messages to the Kafka topic and can test the application. Optionally, if you want to view messages in a topic, you can subscribe to it using the provided script:
@@ -68,7 +68,7 @@ If you'd like to build and test the [`Docker`](https://www.docker.com/) image lo
 1. Run the provided script to build the [`Docker`](https://www.docker.com/) image locally. Use the following command:
 
    ```bash
-   ./scripts/build_docker.sh {{cookiecutter.username}} {{cookiecutter.repo_name}}
+   ./scripts/build_docker.sh {{cookiecutter.username}} {{cookiecutter.project_slug}}
    ```
 
    This script will build the [`Docker`](https://www.docker.com/) image locally with the same name as the one built in `CI`.
@@ -82,7 +82,7 @@ If you'd like to build and test the [`Docker`](https://www.docker.com/) image lo
 3. Once Kafka is up and running, you can start the local [`Docker`](https://www.docker.com/) container using the following command:
 
    ```bash
-   docker run --rm --name faststream-app --net=host ghcr.io/{{cookiecutter.username}}/{{cookiecutter.repo_name}}:latest
+   docker run --rm --name faststream-app --net=host ghcr.io/{{cookiecutter.username}}/{{cookiecutter.project_slug}}:latest
    ```
 
    * `--rm`: This flag removes the container once it stops running, ensuring that it doesn't clutter your system with unused containers.
@@ -124,7 +124,7 @@ If there are any static analysis errors, resolve them in your code and rerun the
 1. Run the following command to view the [`AsyncAPI`](https://www.asyncapi.com/) documentation:
 
    ```bash
-   faststream docs serve {{cookiecutter.repo_name}}.application:app
+   faststream docs serve {{cookiecutter.project_slug}}.application:app
    ```
 
    This command builds the [`AsyncAPI`](https://www.asyncapi.com/) specification file, generates [`AsyncAPI`](https://www.asyncapi.com/) documentation based on the specification, and serves it at `localhost:8000`.
@@ -171,7 +171,7 @@ After the **Deploy FastStream AsyncAPI Docs** workflow in `CI` has been successf
 To view the deployed [`AsyncAPI`](https://www.asyncapi.com/) documentation, open your web browser and navigate to the following URL:
 
 ```txt
-https://{{cookiecutter.username}}.github.io/{{cookiecutter.repo_name}}/
+https://{{cookiecutter.username}}.github.io/{{cookiecutter.project_slug}}/
 ```
 
 You will be directed to the [**GitHub Pages**](https://pages.github.com/) site where your [`AsyncAPI`](https://www.asyncapi.com/) documentation is hosted. This hosted documentation allows you to easily share your [`AsyncAPI`](https://www.asyncapi.com/) specifications with others and provides a centralized location for reviewing the [`AsyncAPI`](https://www.asyncapi.com/) documentation.
@@ -183,13 +183,13 @@ Once the **Build Docker Image** workflow in `CI` has successfully completed, the
 1. Pull the [`Docker`](https://www.docker.com/) image from the [**GitHub Container Registry**](https://ghcr.io) to your server using the following command:
 
    ```bash
-   docker pull ghcr.io/{{cookiecutter.username}}/{{cookiecutter.repo_name}}:latest
+   docker pull ghcr.io/{{cookiecutter.username}}/{{cookiecutter.project_slug}}:latest
    ```
 
 2. After successfully pulling the image, start the [`Docker`](https://www.docker.com/) container using the following command:
 
    ```bash
-   docker run --rm --name faststream-app --env-file /path/to/env-file ghcr.io/{{cookiecutter.username}}/{{cookiecutter.repo_name}}:latest
+   docker run --rm --name faststream-app --env-file /path/to/env-file ghcr.io/{{cookiecutter.username}}/{{cookiecutter.project_slug}}:latest
    ```
 
    * `--rm`: This flag removes the container once it stops running, ensuring that it doesn't clutter your system with unused containers.

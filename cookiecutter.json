@@ -1,5 +1,6 @@
 {
     "username": "github-username",
-    "repo_name": "faststream_app",
+    "project_name": "My FastStream App",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "streaming_service": ["rabbit", "kafka", "nats"]
 }

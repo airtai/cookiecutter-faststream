@@ -17,11 +17,11 @@ jobs:
           pip install -e ".[static-analysis]"
       - name: Run mypy
         shell: bash
-        run: mypy {{cookiecutter.repo_name}}
+        run: mypy {{cookiecutter.project_slug}}
 
       - name: Run bandit
         shell: bash
-        run: bandit -c pyproject.toml -r {{cookiecutter.repo_name}}
+        run: bandit -c pyproject.toml -r {{cookiecutter.project_slug}}
 
   test:
     runs-on: ubuntu-latest
