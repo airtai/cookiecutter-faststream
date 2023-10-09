@@ -35,10 +35,10 @@ pytest
 
 To run the [`FastStream`](https://github.com/airtai/faststream) application locally, follow these steps:
 
-1. Start the Kafka Docker container locally using the provided script:
+1. Start the {{cookiecutter.streaming_service | capitalize}} Docker container locally using the provided script:
 
    ```bash
-   ./scripts/start_kafka_broker_locally.sh
+   ./scripts/start_{{cookiecutter.streaming_service}}_broker_locally.sh
    ```
 
 2. Start the [`FastStream`](https://github.com/airtai/faststream) application with the following command:
@@ -55,10 +55,10 @@ To run the [`FastStream`](https://github.com/airtai/faststream) application loca
 
 4. To stop the [`FastStream`](https://github.com/airtai/faststream) application, press `Ctrl+C`.
 
-5. Finally, stop the Kafka Docker container by running the script:
+5. Finally, stop the {{cookiecutter.streaming_service | capitalize}} Docker container by running the script:
 
    ```bash
-   ./scripts/stop_kafka_broker_locally.sh
+   ./scripts/stop_{{cookiecutter.streaming_service}}_broker_locally.sh
    ```
 
 ## Building and Testing Docker Image Locally
@@ -73,13 +73,13 @@ If you'd like to build and test the [`Docker`](https://www.docker.com/) image lo
 
    This script will build the [`Docker`](https://www.docker.com/) image locally with the same name as the one built in `CI`.
 
-2. Before starting the [`Docker`](https://www.docker.com/) container, ensure that a Kafka [`Docker`](https://www.docker.com/) container is running locally. You can start it using the provided script:
+2. Before starting the [`Docker`](https://www.docker.com/) container, ensure that a {{cookiecutter.streaming_service | capitalize}} [`Docker`](https://www.docker.com/) container is running locally. You can start it using the provided script:
 
    ```bash
-   ./scripts/start_kafka_broker_locally.sh
+   ./scripts/start_{{cookiecutter.streaming_service}}_broker_locally.sh
    ```
 
-3. Once Kafka is up and running, you can start the local [`Docker`](https://www.docker.com/) container using the following command:
+3. Once {{cookiecutter.streaming_service | capitalize}} is up and running, you can start the local [`Docker`](https://www.docker.com/) container using the following command:
 
    ```bash
    docker run --rm --name faststream-app --net=host ghcr.io/{{cookiecutter.username}}/{{cookiecutter.project_slug}}:latest
@@ -93,10 +93,10 @@ If you'd like to build and test the [`Docker`](https://www.docker.com/) image lo
 
 4. To stop the local [`Docker`](https://www.docker.com/) container, simply press `Ctrl+C` in your terminal.
 
-5. Finally, stop the Kafka [`Docker`](https://www.docker.com/) container by running the provided script:
+5. Finally, stop the {{cookiecutter.streaming_service | capitalize}} [`Docker`](https://www.docker.com/) container by running the provided script:
 
    ```bash
-   ./scripts/stop_kafka_broker_locally.sh
+   ./scripts/stop_{{cookiecutter.streaming_service}}_broker_locally.sh
    ```
 
 ## Code Linting
@@ -196,7 +196,7 @@ Once the **Build Docker Image** workflow in `CI` has successfully completed, the
 
    * `--name faststream-app`: Assigns a name to the running container, in this case, "faststream-app".
 
-   * `--env-file /path/to/env-file`: Specifies the path to an environment file (commonly a `.env` file) that contains environment variables required by your [`FastStream`](https://github.com/airtai/faststream) application. Storing secrets and configuration in an environment file is a secure and best practice for handling sensitive information such as Kafka host, port, and authentication details.
+   * `--env-file /path/to/env-file`: Specifies the path to an environment file (commonly a `.env` file) that contains environment variables required by your [`FastStream`](https://github.com/airtai/faststream) application. Storing secrets and configuration in an environment file is a secure and best practice for handling sensitive information such as {{cookiecutter.streaming_service | capitalize}} host, port, and authentication details.
 
 By following these steps, you can easily deploy your [`FastStream`](https://github.com/airtai/faststream) application as a [`Docker`](https://www.docker.com/) container on your server. Remember to customize the `env-file` and other environment variables as needed to suit your specific application requirements.
 

@@ -18,7 +18,8 @@ class Greeting(BaseModel):
     greeting: str = Field(..., description="Greeting message")
 
 
-broker = {{cookiecutter.streaming_service | capitalize}}Broker("localhost:9092")
+# broker = {{cookiecutter.streaming_service | capitalize}}Broker("localhost:{% if 'kafka' in cookiecutter.streaming_service %}9092{% endif %}{% if 'nats' in cookiecutter.streaming_service %}4222{% endif %}{% if 'rabbit' in cookiecutter.streaming_service %}5672{% endif %}")
+broker = {{cookiecutter.streaming_service | capitalize}}Broker()
 app = FastStream(broker, title=title, version=version, description=description)
 
 to_greetings = broker.publisher(
@@ -50,7 +51,15 @@ async def publish_names() -> None:
         ]
         while True:
             name = random.choice(names)  # nosec
+            {% if 'kafka' in cookiecutter.streaming_service %}
             await broker.publish(Name(name=name), topic="names")
+            {% endif %}
+            {% if 'nats' in cookiecutter.streaming_service %}
+            await broker.publish(Name(name=name), subject="names")
+            {% endif %}
+            {% if 'rabbit' in cookiecutter.streaming_service %}
+            await broker.publish(Name(name=name), queue="names")
+            {% endif %}
             await asyncio.sleep(2)
 
     asyncio.create_task(_publish_names())
