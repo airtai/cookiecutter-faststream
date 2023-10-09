@@ -40,6 +40,7 @@ services:
     container_name: rabbitmq
     ports:
       - "5672:5672"
+      - "15672:15672"  # HTTP API
   {% endif %}
     # https://semgrep.dev/r?q=yaml.docker-compose.security.no-new-privileges.no-new-privileges
     security_opt:

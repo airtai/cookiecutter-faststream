@@ -47,10 +47,10 @@ To run the [`FastStream`](https://github.com/airtai/faststream) application loca
    faststream run {{cookiecutter.project_slug}}.application:app --workers 1
    ```
 
-3. You can now send messages to the Kafka topic and can test the application. Optionally, if you want to view messages in a topic, you can subscribe to it using the provided script:
+3. You can now send messages to the {{cookiecutter.streaming_service | capitalize}} and can test the application. Optionally, if you want to view messages in it, you can subscribe to it using the provided script:
 
    ```bash
-   ./scripts/subscribe_to_kafka_broker_locally.sh <topic_name>
+   ./scripts/subscribe_to_{{cookiecutter.streaming_service}}_broker_locally.sh <topic_name>
    ```
 
 4. To stop the [`FastStream`](https://github.com/airtai/faststream) application, press `Ctrl+C`.
