@@ -18,7 +18,6 @@ class Greeting(BaseModel):
     greeting: str = Field(..., description="Greeting message")
 
 
-# broker = {{cookiecutter.streaming_service | capitalize}}Broker("localhost:{% if 'kafka' in cookiecutter.streaming_service %}9092{% endif %}{% if 'nats' in cookiecutter.streaming_service %}4222{% endif %}{% if 'rabbit' in cookiecutter.streaming_service %}5672{% endif %}")
 broker = {{cookiecutter.streaming_service | capitalize}}Broker()
 app = FastStream(broker, title=title, version=version, description=description)
 
