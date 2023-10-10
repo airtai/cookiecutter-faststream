@@ -36,10 +36,7 @@ docker exec -it rabbitmq rabbitmq-plugins enable rabbitmq_management
 
 echo -e "Fetching messages from $topic queue...\n"
 while true; do
-    MESSAGE=$(./rabbitmqadmin get queue="$queue" ackmode=ack_requeue_false)
-    if [[ $MESSAGE ]]; then
-        echo $MESSAGE
-    fi
+    ./rabbitmqadmin get queue="$queue" ackmode=ack_requeue_false
 
     sleep 2
 done
