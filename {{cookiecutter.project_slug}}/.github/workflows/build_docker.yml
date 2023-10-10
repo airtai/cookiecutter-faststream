@@ -1,0 +1,26 @@
+name: Build Docker Image
+on:
+    push:
+      branches:
+        - '*'
+
+jobs:
+  build_docker:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: {% raw %}${{ github.actor }}{% endraw %}
+          password: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - run: ./scripts/build_docker.sh $GITHUB_REPOSITORY_OWNER {% raw %}${{ github.event.repository.name }}{% endraw %}
+      - name: Push built image
+        if: github.ref_name == 'main' || github.ref_name == 'master'
+        run: docker push ghcr.io/$GITHUB_REPOSITORY_OWNER/{% raw %}${{ github.event.repository.name }}{% endraw %} --all-tags
