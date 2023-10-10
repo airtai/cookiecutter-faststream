@@ -167,3 +167,4 @@ asyncapi.yaml
 asyncapi.json
 asyncapi_docs
 faststream-log.txt
+**/rabbitmqadmin
