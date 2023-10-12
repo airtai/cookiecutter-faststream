@@ -30,7 +30,7 @@ jobs:
         - name: Generate asyncapi.yaml
           shell: bash
           run: |
-            faststream docs gen --yaml app.application:app
+            faststream docs gen --yaml {{cookiecutter.project_slug}}.application:app
         - name: Generate AsyncAPI Docs
           shell: bash
           run: |
