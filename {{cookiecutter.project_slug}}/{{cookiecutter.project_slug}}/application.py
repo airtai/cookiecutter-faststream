@@ -59,6 +59,9 @@ async def publish_names() -> None:
             {% if 'rabbit' in cookiecutter.streaming_service %}
             await broker.publish(Name(name=name), queue="names")
             {% endif %}
+            {% if 'redis' in cookiecutter.streaming_service %}
+            await broker.publish(Name(name=name), channel="names")
+            {% endif %}
             await asyncio.sleep(2)
 
     asyncio.create_task(_publish_names())
