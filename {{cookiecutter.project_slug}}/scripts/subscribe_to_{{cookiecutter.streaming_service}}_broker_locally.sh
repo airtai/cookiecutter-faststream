@@ -10,6 +10,9 @@ if [ $# -ne 1 ]; then
     {% if 'rabbit' in cookiecutter.streaming_service %}
     echo "Usage: $0 <queue>"
     {% endif %}
+    {% if 'redis' in cookiecutter.streaming_service %}
+    echo "Usage: $0 <channel>"
+    {% endif %}
     exit 1
 fi
 
@@ -41,4 +44,8 @@ while true; do
     sleep 2
 done
 
+{% endif %}
+{% if 'redis' in cookiecutter.streaming_service %}
+channel="$1"
+docker exec -it redis redis-cli SUBSCRIBE "$channel"
 {% endif %}

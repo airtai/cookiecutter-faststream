@@ -42,6 +42,13 @@ services:
       - "5672:5672"
       - "15672:15672"  # HTTP API
   {% endif %}
+  {% if 'redis' in cookiecutter.streaming_service %}
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+  {% endif %}
     # https://semgrep.dev/r?q=yaml.docker-compose.security.no-new-privileges.no-new-privileges
     security_opt:
       - no-new-privileges:true
